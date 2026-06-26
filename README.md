@@ -109,111 +109,6 @@ results/ga_rastrigin_fitness_curve.png
 results/ga_rastrigin_best_solution.json
 ```
 
-### Algorithm Comparison
-
-```bash
-python scripts/run_algorithm_comparison.py --function rastrigin --generations 120
-```
-
-Outputs:
-
-```text
-results/algorithm_comparison.csv
-results/algorithm_comparison.png
-```
-
-### Multi-objective Optimization
-
-```bash
-python scripts/run_multiobjective_demo.py --generations 80 --population-size 80
-```
-
-Outputs:
-
-```text
-results/multiobjective_pareto_population.csv
-results/multiobjective_history.csv
-results/multiobjective_pareto_front.png
-```
-
-### Genetic Programming for Symbolic Expressions
-
-```bash
-python scripts/run_genetic_programming_demo.py --generations 60 --population-size 80
-```
-
-Outputs:
-
-```text
-results/gp_symbolic_regression_history.csv
-results/gp_symbolic_regression_fit.csv
-results/gp_symbolic_regression_fitness_curve.png
-results/gp_symbolic_regression_fit.png
-results/gp_best_expression.json
-```
-
-### Migrating Island Model
-
-```bash
-python scripts/run_migrating_island_model.py --function rastrigin --islands 4 --generations 80 --migration-interval 10 --migration-size 2
-```
-
-Outputs:
-
-```text
-results/migrating_island_model_history.csv
-results/migrating_island_model_fitness.png
-```
-
-### Constrained Optimization with Penalty Functions
-
-```bash
-python scripts/run_constrained_optimization.py --generations 80 --population-size 60 --penalty-weight 100
-```
-
-Outputs:
-
-```text
-results/constrained_ga_history.csv
-results/constrained_ga_fitness_curve.png
-results/constrained_ga_best_solution.json
-```
-
-### Evolve Cellular Automaton Rules
-
-```bash
-python scripts/run_evolve_ca.py --generations 60 --population-size 40
-```
-
-Outputs:
-
-```text
-results/ca_rule_evolution_history.csv
-results/ca_rule_evolution_fitness_curve.png
-results/ca_target_rule90.png
-results/ca_evolved_rule.png
-results/ca_evolved_rule.gif
-```
-
-### Legacy Independent Island Model
-
-```bash
-python scripts/run_island_model.py --function rastrigin --islands 4 --generations 60
-```
-
-Outputs:
-
-```text
-results/island_model_history.csv
-results/island_model_fitness.png
-```
-
-### Streamlit Viewer
-
-```bash
-streamlit run app.py
-```
-
 ## Results
 
 ### Genetic Algorithm on Rastrigin
@@ -258,46 +153,6 @@ Evolved CA animation:
 
 ![Island Model](results/island_model_fitness.png)
 
-## Method
-
-The main optimizer is a from-scratch real-valued genetic algorithm:
-
-1. Initialize a population of candidate vectors
-2. Evaluate fitness using benchmark functions
-3. Select parents using tournament selection
-4. Recombine parents using blend crossover
-5. Mutate children with Gaussian noise
-6. Preserve a small elite set
-7. Track best fitness, mean fitness, and diversity over generations
-
-The multi-objective optimizer uses a compact NSGA-II style loop with non-dominated sorting and crowding distance. It demonstrates how a population can approximate a Pareto front instead of optimizing a single scalar objective.
-
-The genetic programming experiment evolves expression trees for symbolic regression. Candidate programs are composed of arithmetic operators, constants, and the variable `x`. Fitness is based on prediction error with a small parsimony penalty.
-
-The migrating island model maintains several separate populations and periodically sends elite individuals from each island to the next island in a ring topology. This is different from independent repeated runs because information actually moves between islands during the run.
-
-The constrained optimization experiment uses quadratic penalty functions. It minimizes a base objective while adding a penalty term when constraints are violated.
-
-The cellular automaton experiment evolves elementary cellular automaton rule numbers. Each rule is evaluated by comparing its generated space-time pattern with a target pattern. This connects evolutionary computation with artificial life and local-rule discovery.
-
-## Implemented Extensions
-
-This expanded version includes:
-
-- Multi-objective optimization
-- Genetic programming for symbolic expressions
-- Real migration between islands
-- Constraint handling and penalty functions
-- Evolution Strategy baseline
-- Random Search baseline
-- Algorithm comparison plots
-- Island-model evolutionary search
-- Evolutionary search for cellular automaton rules
-- GIF animation of evolved CA rule growth
-- Streamlit interactive viewer
-- CSV, JSON, PNG, and GIF outputs for GitHub display
-- Pytest tests for core components
-
 ## Limitations
 
 This is an educational implementation, not a production-grade optimization library.
@@ -312,17 +167,6 @@ Current limitations:
 - Hyperparameters are manually chosen for small local experiments
 - Results are stochastic and may vary by seed
 
-## Future Work
+# Why This Project?
 
-Further possible extensions:
-
-- Add more benchmark functions
-- Add experiment configuration files
-- Add GitHub Actions CI
-- Add larger benchmark runs with repeated seeds
-- Add symbolic simplification for genetic programming outputs
-- Add additional migration topologies such as star and fully connected islands
-
-## Why This Project?
-
-Evolutionary computation is a useful bridge between optimization, artificial life, and machine learning. This repository demonstrates how population-based search can discover good solutions, optimize benchmark functions, approximate Pareto fronts, evolve symbolic expressions, handle constrained problems, and search for local update rules that generate structured behavior.
+I think evolutionary computation is a useful bridge between optimization, artificial life, and machine learning. This repository demonstrates how population-based search can discover good solutions, optimize benchmark functions, approximate Pareto fronts, evolve symbolic expressions, handle constrained problems, and search for local update rules that generate structured behavior.
